@@ -1,0 +1,61 @@
+clear bear
+clear exit
+goto start
+
+
+chapter start
+>you are in a dark wet cave. 
+unless player_has_book println It+is+entirely+empty+except+for+a+small+journal+on+the+ground
+unless bear unless exit println there+is+a+low+growl+coming+from+the+north+tunnel.
+unless exit println The+east+blocked+off+by+a+rocks.
+if exit println out+the+east+is+daylight.+The+bear+lies+on+the+floor
+>the south is open but pitch black.
+> you only carry a flash light
+if player_has_book println and+the+journal
+if bear println The+bear+is+right+behind+you+thundering+down+the+cave!
+visit prompt
+unless player_has_book on take println you+grab+the+journal set player_has_book
+on north goto bears_home
+on south goto deadend
+on east goto east
+if bear println You+stand+in+fear+as+the+bear+charges+at+you+killing+you. end game
+goto start
+
+chapter prompt
+unless bear prompt what+now?+
+if bear prompt where+to?+
+on read println guide+for+taming+bears.+New+skill+acquired+bear+taming prompt what+now?+ set powers if bear println you+are+eaten+by+the+bear.+was+it+really+the+right+time+to+read? end game
+on flashlight set flashlight
+on on set flashlight
+return home
+
+
+
+chapter bears_home
+> you carefully creep through the cave with each foot fall sounding like a hundred.
+> a massive black beast blocks the way, but he seems to be sleeping. behind him you see the glimmer of day light coming from around the bend.
+visit prompt
+if powers on tame println the+bear+counters+with+iron+will+ability.+he+starts+chasing+you.+in+a+panic+you+must+run+ set bear goto bear_chase
+if flashlight println the+beast+begins+to+stir+at+the+light+from+your+flashlight.+it+lets+out+a+yawn+and+looks+right+at+you.+In+a+panic+you+must+run+ set bear goto bear_chase
+on north println you+carefully+start+to+sneak+around+the+bear,+but+he+hears+you+and+lounges+at+you+with+his+claws.+He+pins+you+down+and+finishes+you.+game+over end game
+on south goto start
+
+
+
+chapter bear_chase
+visit prompt
+on north println you+run+right+into+the+bear+and+are+eaten end game
+on south goto start
+on east println you+run+into+a+wall+and+the+bear+eats+you end Game
+on west println you+run+into+a+wall+and+the+bear+eats+you end game
+println You+stand+in+fear+as+the+bear+charges+at+you+killing+you. end game
+
+chapter east
+unless bear unless exit println You+cannot+get+past+the+rubble
+if exit println you+run+past+the+unconscious+bear+and+into+the+glorious+outside.+you+win!!! end game
+if bear println You+turn+and+see+the+bear+leaping+at+you,+and+you+quickly+jump+to+the+side.+The+bear+rams+into+the+east+wall+and+breaks+through+to+the+outside+world. clear bear set clear set exit goto start
+
+chapter deadend
+unless flashlight println you+can't+see+anything
+if flashlight println you+reach+a+dead+end
+if bear println you+look+behind+you+to+see+the+massive+bear+coming+to+eat+you.+Game+over end game
